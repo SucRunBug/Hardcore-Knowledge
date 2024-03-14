@@ -143,3 +143,9 @@ sh -c "$(curl -fsSL https://gitee.com/mirrors/oh-my-zsh/raw/master/tools/install
 使用`code .`是可以创建一个.vscode目录，里面有个文件`tasks.json`，然后给args字段添加上一个选项`-std=c++11`就可以运行C++11标准的代码了。
 
 其余部分只需要跟着官网教程走就行了
+
+## 视频下载软件
+
+- Downie 4
+
+> 可以支持油管4k视频下载，并自动检测字幕。
