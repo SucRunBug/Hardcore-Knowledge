@@ -58,6 +58,114 @@ external-ui: "/etc/clash/dashboard"
 
 `gcc --version`
 
+## Miniconda
+
+```bash
+sh MinicondaXXXX.sh -b
+~/minicondaX/bin/conda init
+```
+
+
+
+## 虚拟环境
+
+```bash
+conda create --name ocr python=3.9
+conda activate ocr
+conda install jupyter
+```
+
+后续可以安装pytorch的GPU版本等深度学习框架。
+
+### Mac远程访问Jupyter
+
+要在Mac上的浏览器中访问位于Linux服务器上的Jupyter Notebook，你需要设置Jupyter Notebook服务器以允许远程访问，并且可能还需要设置SSH隧道来安全地转发通信。下面是如何做到这一点的步骤：
+
+#### 步骤1: 配置Jupyter Notebook以允许远程访问
+
+首先，确保你的Jupyter Notebook配置允许远程访问。在你的Linux服务器上，运行以下命令来生成Jupyter配置文件（如果你还没有）：
+
+```bash
+jupyter notebook --generate-config
+```
+
+然后，编辑生成的配置文件（通常位于`~/.jupyter/jupyter_notebook_config.py`）。你可能需要设置以下几个选项：
+
+```python
+c.NotebookApp.ip = '0.0.0.0'  # 允许任何IP访问
+c.NotebookApp.open_browser = False  # 不自动打开浏览器
+c.NotebookApp.port = 8888  # 使用8888端口，或者任何你喜欢的端口
+# c.NotebookApp.password = ''  # 你可以设置密码（推荐）或使用token认证
+```
+
+如果你选择设置密码，可以使用以下命令生成密码：
+
+```bash
+jupyter notebook password
+```
+
+#### 步骤2: 使用SSH隧道从Mac访问
+
+为了安全地从你的Mac访问Jupyter服务器，你可以设置一个SSH隧道。这样做会将服务器上的端口（比如8888）转发到本地机器上的端口（比如8888），通过SSH的加密通道安全地传输数据。
+
+在你的Mac上，打开一个终端窗口，运行以下命令来建立SSH隧道：
+
+```bash
+ssh -N -f -L localhost:8888:localhost:8888 yfy@10.160.215.167
+```
+
+这里，`-N`告诉SSH这个连接不会执行任何远程命令，`-f`使SSH进入后台运行，`-L`指定了端口转发设置。`localhost:8888:localhost:8888`意味着把本地的8888端口转发到远程机器的8888端口。
+
+#### 步骤3: 访问Jupyter Notebook
+
+一旦SSH隧道设置完成，你就可以在Mac的浏览器中通过访问`http://localhost:8888`来访问位于Linux服务器上的Jupyter Notebook了。如果你设置了密码，你会被要求输入它；否则，你可能需要输入Jupyter服务器启动时在终端显示的token。
+
+通过这种方式，你可以安全地从你的Mac访问远程Linux服务器上的Jupyter Notebook，而无需在服务器上进行复杂的网络配置。
+
+### Jupyter暗黑模式
+
+在Ubuntu中，要切换Jupyter Notebook到暗黑模式，你可以使用Jupyter Notebook的主题扩展（如`jupyterthemes`）或直接在JupyterLab中更改主题（如果你使用的是JupyterLab）。下面是两种方法的具体步骤：
+
+#### 使用jupyterthemes
+
+1. **安装`jupyterthemes`**：
+   首先，确保你已经激活了相应的虚拟环境。然后在终端中安装`jupyterthemes`包：
+   ```
+   pip install jupyterthemes
+   ```
+
+2. **切换到暗黑模式**：
+   使用`jt`命令来选择一个暗色主题。例如，使用`chesterish`主题：
+   ```
+   jt -t chesterish
+   ```
+   `jupyterthemes`提供了多种主题选项，你可以通过`jt -l`列出所有可用主题，然后选择你喜欢的一个。
+
+3. **重启Jupyter Notebook**：
+   如果Jupyter Notebook已经在运行，需要重启它以应用新的主题设置。
+
+4. **恢复默认主题**：
+   如果你想要恢复到默认的Jupyter Notebook主题，可以使用以下命令：
+   ```
+   jt -r
+   ```
+   然后重启Jupyter Notebook。
+
+#### 在JupyterLab中切换暗黑模式
+
+如果你使用的是JupyterLab，切换到暗黑模式更为简单：
+
+1. **打开JupyterLab**：
+   在终端中启动JupyterLab：
+   ```
+   jupyter lab
+   ```
+
+2. **切换主题**：
+   在JupyterLab界面中，点击顶部菜单栏的`Settings` > `JupyterLab Theme` > `JupyterLab Dark`来切换到暗黑模式。
+
+JupyterLab的暗黑模式可以直接通过菜单栏进行切换，不需要安装额外的扩展或主题。这使得在JupyterLab中切换主题变得非常方便。
+
 ## D2L
 
 参考书上的方式，创建好d2l虚拟环境。
