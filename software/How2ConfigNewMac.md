@@ -149,3 +149,9 @@ sh -c "$(curl -fsSL https://gitee.com/mirrors/oh-my-zsh/raw/master/tools/install
 - Downie 4
 
 > 可以支持油管4k视频下载，并自动检测字幕。
+
+## 快捷指令
+
+打开**目录、app、文件以及网站**最好直接使用“运行Shell脚本”，从而避免与其他快捷操作联动，而产生冲突。
+
+但播放音乐有bug，尚未解决。利用了AppleScript也报错。最后是用shell脚本调用AppleScript才解决了语法报错，还用上了环境变量。

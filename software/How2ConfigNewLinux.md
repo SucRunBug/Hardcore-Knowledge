@@ -50,6 +50,33 @@ external-ui: "/etc/clash/dashboard"
 
 换了清华源，但是有问题。
 
+之后我解决了此问题：
+
+### 常用的中国大陆镜像源
+
+1. **清华大学镜像源** - `https://pypi.tuna.tsinghua.edu.cn/simple`
+2. **阿里云镜像源** - `https://mirrors.aliyun.com/pypi/simple/`
+3. **中国科技大学镜像源** - `https://pypi.mirrors.ustc.edu.cn/simple/`
+4. **华中科技大学镜像源** - `https://pypi.hustunique.com/simple/`
+5. **腾讯云镜像源** - `https://mirrors.cloud.tencent.com/pypi/simple`
+
+使用方法：
+
+ ```bash
+ pip install Pillow -i https://pypi.tuna.tsinghua.edu.cn/simple
+ ```
+
+如果你想要永久更改镜像源，可以修改`pip`的配置文件
+
+- **Linux和macOS**：在你的家目录下创建或修改`.pip/pip.conf`文件，添加以下内容：
+
+```
+[global]
+index-url = https://pypi.tuna.tsinghua.edu.cn/simple
+```
+
+- **Windows**：在你的用户文件夹下创建或修改`pip.ini`文件（通常路径为`C:\Users\<你的用户名>\pip\pip.ini`），添加同样的内容。
+
 ## 基础开发环境
 
 `sudo apt update`
