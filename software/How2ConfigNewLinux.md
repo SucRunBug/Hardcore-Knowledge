@@ -205,6 +205,83 @@ JupyterLab的暗黑模式可以直接通过菜单栏进行切换，不需要安�
 
 cuda-toolkit？需要再装
 
+## Docker
+
+*此步骤并未参考官方文档，而是直接询问的GPT4，内容可能存疑。*
+
+在Ubuntu中安装Docker环境的步骤如下，这些步骤适用于大多数Ubuntu版本，包括Ubuntu 20.04 LTS和Ubuntu 18.04 LTS。请按照下列步骤操作：
+
+1. **更新软件包索引**：
+   打开终端并执行以下命令，以确保您的Ubuntu系统的软件包索引是最新的。
+   ```bash
+   sudo apt-get update
+   ```
+
+2. **安装所需的软件包**：
+   安装`apt-transport-https`、`ca-certificates`、`curl`、`software-properties-common`这些软件包，这些是添加外部HTTPS源所需要的。
+   ```bash
+   sudo apt-get install apt-transport-https ca-certificates curl software-properties-common
+   ```
+
+3. **添加Docker的官方GPG密钥**：*【运行后警告：apt-key已弃用。改为在trusted.gpg.d中管理密匙环文件(参见apt-key(8))】*
+   使用curl将Docker的官方GPG密钥添加到您的系统中，以确保下载的软件包的安全性。
+   
+   ```bash
+   curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+   ```
+
+*重新询问：*
+
+收到`apt-key is deprecated`的警告消息表明`apt-key`命令已经被废弃，这是因为Ubuntu和Debian等Linux发行版正在向更安全的软件包签名验证机制过渡。虽然这个警告不会阻止您添加Docker的GPG密钥，也不会立即影响Docker的安装和使用，但为了遵循最佳实践，建议采用新的方法来管理APT的密钥。
+
+以下是根据警告信息更新的步骤，使用更现代的方法来添加Docker的官方GPG密钥，并确保APT能够验证下载软件包的签名：
+
+1. **下载Docker的GPG密钥**：
+   首先，使用`curl`命令下载密钥：
+   ```bash
+   curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o docker.gpg
+   ```
+
+2. **将密钥添加到APT的信任密钥库中**：
+   然后，将下载的密钥添加到`/usr/share/keyrings`目录下的一个密钥环文件中。这是一个更安全的方法，因为它不会将密钥添加到全局的`trusted.gpg`或`trusted.gpg.d`目录中，而是将密钥存储在一个单独的文件中。
+   ```bash
+   sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg docker.gpg
+   ```
+
+3. **设置Docker的APT仓库**：
+   接下来，您需要添加Docker的APT仓库到您的系统中。不同于之前，现在您应该指定密钥环文件来验证仓库签名。
+   ```bash
+   echo "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+   ```
+
+4. **更新软件包索引并安装Docker**：
+   最后，更新APT索引并安装Docker：
+   ```bash
+   sudo apt-get update
+   sudo apt-get install docker-ce docker-ce-cli containerd.io
+   ```
+
+这些步骤遵循了新的安全实践，确保了您在添加外部仓库和密钥时的系统安全性。即使在收到`apt-key`已被废弃的警告后，您仍然可以通过这种方式安全地添加Docker的GPG密钥并继续安装。
+
+*测试：*
+
+1. **验证Docker安装**：
+   安装完成后，您可以运行一个测试镜像来验证Docker是否正确安装。
+   ```bash
+   sudo docker run hello-world
+   ```
+
+   这个命令会从Docker Hub下载一个测试镜像，并在容器中运行。如果安装成功，它将在终端中打印一条欢迎消息。
+
+2. **（可选）将当前用户添加到Docker组**：
+   默认情况下，运行`docker`命令需要`sudo`权限。为了避免每次运行`docker`命令都需要输入`sudo`，可以将您的用户添加到`docker`组中。
+   ```bash
+   sudo usermod -aG docker $USER
+   ```
+   完成这一步后，您需要注销并重新登录，或者重启系统，以使这一改变生效。
+
+这就是在Ubuntu系统中安装Docker环境的全部步骤。安装完成后，您就可以开始使用Docker来运行容器化的应用程序了。
+
 # 后期优化
 
 ## 输入法
