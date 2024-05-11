@@ -68,3 +68,13 @@ ps -aux | grep ssh
 涉及购买，受限于经济条件，我可能会货比三家，造成更多时间和精力的浪费，不太愿意选择这种方式。
 
 如果非要连接，就使用远程桌面软件。
+
+
+
+2024.5.11
+
+虽然还没有在局域网外适用，但是局域网内的效果出奇的好，显示效果非常清晰。
+
+参考的视频是https://www.bilibili.com/video/BV1YM4y1z7wE/?spm_id_from=333.337.search-card.all.click&vd_source=86646d951d84826a4640314db345f2aa
+
+就是在Mac和win上装了tailscale软件，弄出来虚拟的公网IP，然后再打开win上的远程桌面，Mac上安装Microsoft Remote Desktop，这个下载链接是https://go.microsoft.com/fwlink/?linkid=868963，然后使用win的IP即可，输入win上登录的微软账号密码
