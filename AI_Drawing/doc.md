@@ -83,6 +83,56 @@ Tagger是一个插件，在新版的整合包内也帮你装好了，可以在�
 
 ### 使用ControlNet精细控制画面
 
-为文生图增效，控制：人物姿势/深度/线稿上色
+为文生图增效，可控制人物姿势、深度（景深），还支持线稿上色。
 
 2023.2.16安装教程1https://www.bilibili.com/video/BV1Wo4y1i77v/?spm_id_from=333.976.0.0&vd_source=86646d951d84826a4640314db345f2aa
+
+>将模型放在 models/ControlNet 里
+>2023年10月以后，启动器已支持国内镜像加速预处理器，故不再需要手动安装预处理器
+
+各种处理方式如下图所示：
+
+<img src="https://raw.githubusercontent.com/SucRunBug/img_bed/main/image-20240513174235944.png" alt="image-20240513174235944" style="zoom:50%;" />
+
+<img src="https://raw.githubusercontent.com/SucRunBug/img_bed/main/image-20240513174325843.png" alt="image-20240513174325843" style="zoom:50%;" />
+
+视频里的时间节点还处于测试阶段，要使用需要将WebUI更新到最新版本。
+
+模型安装可以从原项目的hugging face上下载https://huggingface.co/webui/ControlNet-modules-safetensors/tree/main
+
+由于我实在不想把老的教程给逐字逐句地记录下来，我就直接看最新的1.1教程版本了。
+
+新功能预览如下图：
+
+<img src="https://raw.githubusercontent.com/SucRunBug/img_bed/main/image-20240513180114066.png" alt="image-20240513180114066" style="zoom:50%;" />
+
+那这样岂不是可以给很多黑白漫画上色了。效果秒杀上面提到的canny，幸亏没再研究旧版本了，不过看完新版本可以再回看一下。
+
+<img src="https://raw.githubusercontent.com/SucRunBug/img_bed/main/image-20240513180339862.png" alt="image-20240513180339862" style="zoom:50%;" />
+
+<img src="https://raw.githubusercontent.com/SucRunBug/img_bed/main/image-20240513180457206.png" alt="image-20240513180457206" style="zoom:50%;" />
+
+<img src="https://raw.githubusercontent.com/SucRunBug/img_bed/main/image-20240513180557824.png" alt="image-20240513180557824" style="zoom:50%;" />
+
+怎么安装并使用？
+
+需要安装的内容：
+
+- 升级ControlNet插件版本（在启动器中升级，如下图所示位置，点击sd-webui-controlnet的左侧的更新，注意更新前需要停止WebUI）
+
+![image-20240513182023546](https://raw.githubusercontent.com/SucRunBug/img_bed/main/image-20240513182023546.png)
+
+- 安装各种预处理器的模型（可选，并且WebUI中已经自带很多种）——本身会在使用的时候自动下载，但可能会出现网络问题
+
+看到这里，我发现我没有下载人家准备好的预处理器，因为根本没分享出来。
+
+- 安装ControlNet 1.1 模型
+
+<img src="https://raw.githubusercontent.com/SucRunBug/img_bed/main/image-20240513180649015.png" alt="image-20240513180649015" style="zoom:50%;" />
+
+在webUI的图生图中，功能区（可能需要向下划动）截图如下：
+
+<img src="https://raw.githubusercontent.com/SucRunBug/img_bed/main/image-20240513181041646.png" alt="image-20240513181041646" style="zoom:50%;" />
+
+1.1的模型命名方式如下图：
+<img src="https://raw.githubusercontent.com/SucRunBug/img_bed/main/image-20240513181306620.png" alt="image-20240513181306620" style="zoom:50%;" />
