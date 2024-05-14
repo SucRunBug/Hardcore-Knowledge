@@ -90,6 +90,8 @@ Tagger是一个插件，在新版的整合包内也帮你装好了，可以在�
 >将模型放在 models/ControlNet 里
 >2023年10月以后，启动器已支持国内镜像加速预处理器，故不再需要手动安装预处理器
 
+#### 1.0介绍
+
 各种处理方式如下图所示：
 
 <img src="https://raw.githubusercontent.com/SucRunBug/img_bed/main/image-20240513174235944.png" alt="image-20240513174235944" style="zoom:50%;" />
@@ -99,6 +101,8 @@ Tagger是一个插件，在新版的整合包内也帮你装好了，可以在�
 视频里的时间节点还处于测试阶段，要使用需要将WebUI更新到最新版本。
 
 模型安装可以从原项目的hugging face上下载https://huggingface.co/webui/ControlNet-modules-safetensors/tree/main
+
+#### 1.1新功能
 
 由于我实在不想把老的教程给逐字逐句地记录下来，我就直接看最新的1.1教程版本了。
 
@@ -114,7 +118,7 @@ Tagger是一个插件，在新版的整合包内也帮你装好了，可以在�
 
 <img src="https://raw.githubusercontent.com/SucRunBug/img_bed/main/image-20240513180557824.png" alt="image-20240513180557824" style="zoom:50%;" />
 
-怎么安装并使用？
+#### 怎么安装并使用？
 
 需要安装的内容：
 
@@ -124,7 +128,9 @@ Tagger是一个插件，在新版的整合包内也帮你装好了，可以在�
 
 - 安装各种预处理器的模型（可选，并且WebUI中已经自带很多种）——本身会在使用的时候自动下载，但可能会出现网络问题
 
-看到这里，我发现我没有下载人家准备好的预处理器，因为根本没分享出来。
+看到这里，我发现我没有下载人家准备好的预处理器，因为根本没分享出来。存放路径里也没找到。但是能正常使用。
+
+存放路径是在extensions/sd-webui-controlnet/annotator
 
 - 安装ControlNet 1.1 模型
 
@@ -134,5 +140,92 @@ Tagger是一个插件，在新版的整合包内也帮你装好了，可以在�
 
 <img src="https://raw.githubusercontent.com/SucRunBug/img_bed/main/image-20240513181041646.png" alt="image-20240513181041646" style="zoom:50%;" />
 
+建议勾选“完美像素模式”。
+
+对于“控制模式”，选择“更偏向ControlNet”时，需要降低CFG
+
+softEdge预处理对应softEdge模型（以前叫HED）
+
+OpenPose预处理器对应OpenPose模型，Openpose_full模型可以全部搞定手部脸部。
+
+<img src="https://raw.githubusercontent.com/SucRunBug/img_bed/main/image-20240514152607758.png" alt="image-20240514152607758" style="zoom:50%;" />
+
+<img src="https://raw.githubusercontent.com/SucRunBug/img_bed/main/image-20240514152851319.png" alt="image-20240514152851319" style="zoom:50%;" />
+
+<img src="https://raw.githubusercontent.com/SucRunBug/img_bed/main/image-20240514153324809.png" alt="image-20240514153324809" style="zoom:50%;" />
+
+<img src="https://raw.githubusercontent.com/SucRunBug/img_bed/main/image-20240514165821532.png" alt="image-20240514165821532" style="zoom:50%;" />
+
+#### 模型命名方式
+
 1.1的模型命名方式如下图：
 <img src="https://raw.githubusercontent.com/SucRunBug/img_bed/main/image-20240513181306620.png" alt="image-20240513181306620" style="zoom:50%;" />
+
+模型存放位置：models/ControlNet
+
+#### 给线稿上色
+
+首先在webUI的界面中找到“WD1.4标签器”（版本号可能不一致，也叫Tagger），上传线稿，点击“反推提示词”，再点击“发送到文生图”。
+
+下一步是在跳转到的界面中找到controlnet（可能需要向下滑动），勾选“启用”和“完美像素模式”，并上传之前的线稿，选择预处理器“反色invert”，选择模型lineart_anime进行上色。
+
+最后选择想要的SD模型和尺寸等。
+
+前两次带有黑白标签，生成黑白色彩的图片，去掉如lineart、greyscale和monochrome等标签后，第三次可以生成彩色图片。
+
+<img src="https://raw.githubusercontent.com/SucRunBug/img_bed/main/截屏2024-05-14 15.56.42.png" alt="截屏2024-05-14 15.56.42" style="zoom:50%;" />
+
+#### Pix2Pix
+
+前面提到过的局部改变天气的新功能。
+
+这个非常吃底模，某些模型可能不会生效。
+
+提示词需要写指令，例如make it night变为夜晚。同时，可以也增加一些夜晚的tag。
+
+这个需要调低CFG，低到5以下。
+
+#### Tile模型
+
+神必特性：
+
+- 忽略图像中的细节并生成新的细节
+- 如果局部的内容与全局提示词不匹配，则忽略掉提示词，根据周围的图片尝试去推断局部的内容
+
+带来的效果：
+
+- ﻿﻿图生图的功能
+- ﻿﻿让画面更好地融合的功能（比如P上去一个物品，Tile可以推断周围融合）
+- ﻿﻿增加细节的功能
+- ﻿﻿如果你直接拉大分辨率再用Tile，那他就可以有放大图片的功能
+- ﻿﻿配合其他图片放大器（例如后处理里面的放大，可以很好的修复因为放大导致的细节问题）
+
+<img src="https://raw.githubusercontent.com/SucRunBug/img_bed/main/截屏2024-05-14 16.42.16.png" alt="截屏2024-05-14 16.42.16" style="zoom:50%;" />
+
+#### OpenPose
+
+建议使用时一定要上传真人的图片。
+
+<img src="https://raw.githubusercontent.com/SucRunBug/img_bed/main/image-20240514165550531.png" alt="image-20240514165550531" style="zoom:50%;" />
+
+#### 三视图
+
+将下载好的文件解压，将其中的lora模型charturnbetalora（后缀SAFETENSORS），放置于models\Lora\下，然后启动webUI
+
+启用controlnet，加载三视图的骨骼图，预处理器不用动，模型选择control_openpose，提示词为
+
+```bash
+masterpiece, best quality, 1girl, simple background, (white background:1.5), multiple views,  
+
+# 中间写自己想要的tag
+# 例如：
+thighhighs,gloves,bow-shaped hair,bare shoulders,shorts,navel,cleavage,long hair,pink hair,bangs,purple eyes,
+
+<lora:charturnbetalora:0.2>
+```
+
+启用高清修复，重绘幅度推荐0.6
+
+对于三视图，分辨率需要高度小，宽度大，推荐704x320
+
+还可以不断调整lora的权重，推荐0.2-0.6
