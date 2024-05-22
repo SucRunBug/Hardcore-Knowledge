@@ -71,7 +71,9 @@ AI 基本上无法生成超级大图，想要生成高清图片正确的做法�
 
 ## 图生图基础
 
-### 查询图片参数（反推tag）
+（待更新参数讲解）在某一图片上进行修改（全部修改、部分修改、指定颜色修改）
+
+## 查询图片参数（反推tag）
 
 AI生成图片会自动保存全部参数到原图中，可以在WebUI的 “图片信息” 一栏内通过解析原图查看到。也可以使用我写的这个工具：https://spell.novelai.dev/
 
@@ -81,7 +83,7 @@ Tagger是一个插件，在新版的整合包内也帮你装好了，可以在�
 
 <img src="https://raw.githubusercontent.com/SucRunBug/img_bed/main/image-20240511215906107.png" alt="image-20240511215906107" style="zoom:50%;" />
 
-### 使用ControlNet精细控制画面
+## 使用ControlNet精细控制画面
 
 为文生图增效，可控制人物姿势、深度（景深），还支持线稿上色。
 
@@ -90,7 +92,7 @@ Tagger是一个插件，在新版的整合包内也帮你装好了，可以在�
 >将模型放在 models/ControlNet 里
 >2023年10月以后，启动器已支持国内镜像加速预处理器，故不再需要手动安装预处理器
 
-#### 1.0介绍
+### 1.0介绍
 
 各种处理方式如下图所示：
 
@@ -102,7 +104,7 @@ Tagger是一个插件，在新版的整合包内也帮你装好了，可以在�
 
 模型安装可以从原项目的hugging face上下载https://huggingface.co/webui/ControlNet-modules-safetensors/tree/main
 
-#### 1.1新功能
+### 1.1新功能
 
 由于我实在不想把老的教程给逐字逐句地记录下来，我就直接看最新的1.1教程版本了。
 
@@ -118,7 +120,7 @@ Tagger是一个插件，在新版的整合包内也帮你装好了，可以在�
 
 <img src="https://raw.githubusercontent.com/SucRunBug/img_bed/main/image-20240513180557824.png" alt="image-20240513180557824" style="zoom:50%;" />
 
-#### 怎么安装并使用？
+### 怎么安装并使用？
 
 需要安装的内容：
 
@@ -156,14 +158,14 @@ OpenPose预处理器对应OpenPose模型，Openpose_full模型可以全部搞定
 
 <img src="https://raw.githubusercontent.com/SucRunBug/img_bed/main/image-20240514165821532.png" alt="image-20240514165821532" style="zoom:50%;" />
 
-#### 模型命名方式
+### 模型命名方式
 
 1.1的模型命名方式如下图：
 <img src="https://raw.githubusercontent.com/SucRunBug/img_bed/main/image-20240513181306620.png" alt="image-20240513181306620" style="zoom:50%;" />
 
 模型存放位置：models/ControlNet
 
-#### 给线稿上色
+### 给线稿上色
 
 首先在webUI的界面中找到“WD1.4标签器”（版本号可能不一致，也叫Tagger），上传线稿，点击“反推提示词”，再点击“发送到文生图”。
 
@@ -175,7 +177,7 @@ OpenPose预处理器对应OpenPose模型，Openpose_full模型可以全部搞定
 
 <img src="https://raw.githubusercontent.com/SucRunBug/img_bed/main/截屏2024-05-14 15.56.42.png" alt="截屏2024-05-14 15.56.42" style="zoom:50%;" />
 
-#### Pix2Pix
+### Pix2Pix
 
 前面提到过的局部改变天气的新功能。
 
@@ -185,7 +187,7 @@ OpenPose预处理器对应OpenPose模型，Openpose_full模型可以全部搞定
 
 这个需要调低CFG，低到5以下。
 
-#### Tile模型
+### Tile模型
 
 神必特性：
 
@@ -202,13 +204,13 @@ OpenPose预处理器对应OpenPose模型，Openpose_full模型可以全部搞定
 
 <img src="https://raw.githubusercontent.com/SucRunBug/img_bed/main/截屏2024-05-14 16.42.16.png" alt="截屏2024-05-14 16.42.16" style="zoom:50%;" />
 
-#### OpenPose
+### OpenPose
 
 建议使用时一定要上传真人的图片。
 
 <img src="https://raw.githubusercontent.com/SucRunBug/img_bed/main/image-20240514165550531.png" alt="image-20240514165550531" style="zoom:50%;" />
 
-#### 三视图
+### 三视图
 
 将下载好的文件解压，将其中的lora模型charturnbetalora（后缀SAFETENSORS），放置于models\Lora\下，然后启动webUI
 
@@ -229,3 +231,33 @@ thighhighs,gloves,bow-shaped hair,bare shoulders,shorts,navel,cleavage,long hair
 对于三视图，分辨率需要高度小，宽度大，推荐704x320
 
 还可以不断调整lora的权重，推荐0.2-0.6
+
+## 使用X/Y/Z图表
+
+在生成图片的时候，使用该图表快速生成不同参数的图片进行对比，效果如下图：
+
+<img src="https://raw.githubusercontent.com/SucRunBug/img_bed/main/截屏2024-05-18 21.33.20.png" alt="截屏2024-05-18 21.33.20" style="zoom:50%;" />
+
+教程可参考https://guide.novelai.dev/guide/configuration/param-advanced
+
+这项功能可以在“文生图/图生图“界面的左下角 “脚本” 一栏内选择 “X/Y/Z 图表” 以启用。如下图所示：
+
+<img src="https://raw.githubusercontent.com/SucRunBug/img_bed/main/截屏2024-05-18 22.03.55.png" alt="截屏2024-05-18 22.03.55" style="zoom: 33%;" />
+
+按照官方教程，我得到了如下结果：
+
+正向提示词：
+
+```
+a portrait of Medusa Gorgona,castle interior,cinematic lighting,highly detailed,digital painting,art by Roy Liechtestein,
+```
+
+
+
+<img src="https://raw.githubusercontent.com/SucRunBug/img_bed/main/截屏2024-05-21 18.45.03.png" alt="截屏2024-05-21 18.45.03" style="zoom:50%;" />
+
+## 使用图库浏览器
+
+如下图所示：
+
+<img src="https://raw.githubusercontent.com/SucRunBug/img_bed/main/截屏2024-05-21 18.55.09.png" alt="截屏2024-05-21 18.55.09" style="zoom:33%;" />
