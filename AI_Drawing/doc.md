@@ -171,7 +171,7 @@ OpenPose预处理器对应OpenPose模型，Openpose_full模型可以全部搞定
 
 下一步是在跳转到的界面中找到controlnet（可能需要向下滑动），勾选“启用”和“完美像素模式”，并上传之前的线稿，选择预处理器“反色invert”，选择模型lineart_anime进行上色。
 
-最后选择想要的SD模型和尺寸等。
+最后选择想要的SD模型和尺寸（比如512x768）等。
 
 前两次带有黑白标签，生成黑白色彩的图片，去掉如lineart、greyscale和monochrome等标签后，第三次可以生成彩色图片。
 
@@ -261,3 +261,71 @@ a portrait of Medusa Gorgona,castle interior,cinematic lighting,highly detailed,
 如下图所示：
 
 <img src="https://raw.githubusercontent.com/SucRunBug/img_bed/main/截屏2024-05-21 18.55.09.png" alt="截屏2024-05-21 18.55.09" style="zoom:33%;" />
+
+## 安装/管理/更新/卸载插件
+
+参考教程https://www.bilibili.com/read/cv22316068
+
+位置：绘世启动器左边栏“版本管理”-上边栏“扩展”，打开如下图所示的界面：
+
+![截屏2024-05-22 22.35.47](https://raw.githubusercontent.com/SucRunBug/img_bed/main/截屏2024-05-22 22.35.47.png)
+
+更新前请务必停止正在运行的webUI进程。如果想将插件全部更新，可以点击右上角的“一键更新”。
+
+还可以从以下图片中所示位置选择其他想要安装的插件：
+
+<img src="https://raw.githubusercontent.com/SucRunBug/img_bed/main/截屏2024-05-22 22.43.00.png" alt="截屏2024-05-22 22.43.00" style="zoom:33%;" />
+
+或者进入extensions文件夹中使用git clone命令安装，如果是不带.git的插件，是无法实时获得更新的。
+
+卸载插件可以直接进入extensions的文件夹中，删除对应插件即可。
+
+很多插件还有自己单独的设置，在webUI中“设置”里找到。设置完毕记得保存并重启webUI。
+
+# 进阶使用
+
+## 更换模型
+
+本节带读者认识各种模型，参考文章https://www.bilibili.com/read/cv21362202
+
+### 前言
+
+常见的模型例如：SD1.5、2.0、SDXL等是较为通用的、现实模型，无法画出二次元图片。而其他的各种大模型，则是在上面这些基础上继续训练得到的特化模型。比如常说的NovelAI就是特质NovelAI制作的一款日系二次元特化的模型。
+
+而不同的模型会带来不同的画风，认识不同的概念（人物/物体/动作）。
+
+### 模型概况
+
+常见模型分为两大类：大模型和用于微调大模型的小型模型。
+
+> 原作者注：此处大模型特指标准的latent-diffusion模型。拥有完整的TextEncoder、U-Net、VAE。
+
+受限于算力，不太好炼制、微调（finetune）大模型，所以炼制小模型会更好，这些小模型通过作用在大模型的不同部分，来简单地修改大模型，从而生成想要的图片。
+
+小型模型分为：Textual inversion (常说的Embedding模型)、Hypernetwork模型、LoRA模型。
+
+> 全部写下来太影响学习效率了，我打算建立一个索引，如果日后有需要，再对应索引找回原文。索引主要讲该文章介绍了哪些内容，可以适当加一些重要的操作或概念。
+
+文章还专门讲解了VAE模型，像一种滤镜。
+
+不同模型有不同作用，判断可以用https://spell.novelai.dev/
+
+### 模型后缀
+
+讲了常用的模型后缀名，其中带pt的都是pytorch的标准模型保存格式
+
+要安全就用safetensors
+
+### 常见模型种类及使用方法
+
+介绍了大模型，及其格式和大小
+
+也不是越大越好，具体参考文章https://www.bilibili.com/read/cv26279169
+
+主要结论就是：凡是SD1.5的模型，2G大小就是最终的有效数据。
+
+其中又提到大模型中各个部分的原理，参考视频https://www.bilibili.com/video/BV1x8411m76H
+
+<img src="https://raw.githubusercontent.com/SucRunBug/img_bed/main/截屏2024-05-23 00.52.21.png" alt="截屏2024-05-23 00.52.21" style="zoom:33%;" />
+
+这张图视频里主要提了下半部分，用于生成图片的过程，如果想进一步了解更多原理可以参考论文Rombach R, Blattmann A, Lorenz D, et al. High-resolution image synthesis with latent diffusion models[C]//Proceedings of the IEEE/CVF conference on computer vision and pattern recognition. 2022: 10684-10695.
