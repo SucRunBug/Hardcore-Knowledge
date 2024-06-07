@@ -155,3 +155,22 @@ sh -c "$(curl -fsSL https://gitee.com/mirrors/oh-my-zsh/raw/master/tools/install
 打开**目录、app、文件以及网站**最好直接使用“运行Shell脚本”，从而避免与其他快捷操作联动，而产生冲突。
 
 但播放音乐有bug，尚未解决。利用了AppleScript也报错。最后是用shell脚本调用AppleScript才解决了语法报错，还用上了环境变量。
+
+## 磁盘扫描工具
+
+DaisyDisk
+
+非常靠谱，虽然没有Windows上wiztree那样方便，而且可能存在某些东西没有删除权限（比如adobe相关的），但基本上能把垃圾内容扫出来并删除掉（比如我之前看到崩坏3上Mac了，就去玩了一下，不好玩就卸载了，结果占用了20多个GB都没发现），易用性拉满。
+
+## 文件已损坏
+
+首先检查设置中“隐私与安全”，找到文件来源（可能需要向下滑动），是否为任何来源。
+
+接着打开终端，在终端中输入`sudo spctl --master-disable;xcode-select --install`
+
+回车执行后，输入`sudo codesign --force --deep --sign - `（注意最后有空格）
+
+先不要执行，将打不开的 app 从 finder 中直接拖入终端，会在上一命令末尾生成软件路径，然后再执行。
+
+如果依旧不能解决，则输入`sudo xattr -r -d com.apple.quarantine `，同样在最后加上软件的路径。
+

@@ -318,6 +318,8 @@ a portrait of Medusa Gorgona,castle interior,cinematic lighting,highly detailed,
 
 ### 常见模型种类及使用方法
 
+#### 大模型
+
 介绍了大模型，及其格式和大小
 
 也不是越大越好，具体参考文章https://www.bilibili.com/read/cv26279169
@@ -329,3 +331,19 @@ a portrait of Medusa Gorgona,castle interior,cinematic lighting,highly detailed,
 <img src="https://raw.githubusercontent.com/SucRunBug/img_bed/main/截屏2024-05-23 00.52.21.png" alt="截屏2024-05-23 00.52.21" style="zoom:33%;" />
 
 这张图视频里主要提了下半部分，用于生成图片的过程，如果想进一步了解更多原理可以参考论文Rombach R, Blattmann A, Lorenz D, et al. High-resolution image synthesis with latent diffusion models[C]//Proceedings of the IEEE/CVF conference on computer vision and pattern recognition. 2022: 10684-10695.
+
+大模型放的路径为models/Stable-diffusion/
+
+如果画面明显发灰，需要手动选择VAE
+
+#### Lora/LyCORIS
+
+路径为models/Lora/
+
+#### Embedding
+
+路径为embeddings/
+
+使用时带上文件名作为tag
+
+很小，常放在负面提示词内
