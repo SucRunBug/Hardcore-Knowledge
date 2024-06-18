@@ -78,3 +78,7 @@ ps -aux | grep ssh
 参考的视频是https://www.bilibili.com/video/BV1YM4y1z7wE/?spm_id_from=333.337.search-card.all.click&vd_source=86646d951d84826a4640314db345f2aa
 
 就是在Mac和win上装了tailscale软件，弄出来虚拟的公网IP，然后再打开win上的远程桌面，Mac上安装Microsoft Remote Desktop，这个下载链接是https://go.microsoft.com/fwlink/?linkid=868963，然后使用win的IP即可，输入win上登录的微软账号密码
+
+2024.06.08
+
+遇到了即使是在局域网内，依旧延迟很高，于是我怀疑是 tailscale 的问题，于是就参考视频https://www.bilibili.com/video/BV1uS4y1k7zx，不创建虚拟局域网，而是直接使用 Windows 的 IP 地址进行链接。
