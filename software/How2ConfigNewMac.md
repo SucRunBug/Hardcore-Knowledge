@@ -174,3 +174,6 @@ DaisyDisk
 
 如果依旧不能解决，则输入`sudo xattr -r -d com.apple.quarantine `，同样在最后加上软件的路径。
 
+## 使用VScode进行markdown写作
+
+参考连接https://www.limfx.pro/ReadArticle/57/yi-zhong-xie-zuo-de-xin-fang-fa
