@@ -51,3 +51,11 @@ crtl + shift + esc 进入任务管理器，左边栏中选择启动应用。
 ![截屏2024-06-08 00.14.34](https://raw.githubusercontent.com/SucRunBug/img_bed/main/undefined%E6%88%AA%E5%B1%8F2024-06-08%2000.14.34.png)
 
 ![截屏2024-06-08 00.14.34](/Users/yanfeiyu/Desktop/截屏2024-06-08 00.14.34.png)
+
+## 免费音乐
+
+link: https://github.com/SpotX-Official/SpotX?tab=readme-ov-file
+
+破解版Spotify，运行.bat后在弹出的命令行内，取消开启任何功能。
+
+歌曲很全，具有联网功能，能有最新的曲目，类似于Apple music的风格。
