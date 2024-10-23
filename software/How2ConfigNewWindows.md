@@ -2,9 +2,9 @@
 
 MusicPlayer2，可以在GitHub下载
 
-## 批量视频下载器
-
 [GitHub下载链接](https://github.com/zhongyang219/MusicPlayer2)
+
+## 批量视频下载器
 
 可以批量下载B站视频整个播放列表的软件CR Tubeget
 
