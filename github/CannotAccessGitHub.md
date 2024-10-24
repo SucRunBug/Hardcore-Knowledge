@@ -40,3 +40,19 @@ http://training.github.com 207.97.227.243 http://www.github.com
 接下来便是寻找了一些奇怪的开源项目，比如FastGitHub，我还专门编译了项目代码，不知道操作对了没，最后还是没用。
 
 去看了镜像站，kGithub，这镜像站估计倒闭了，搜索功能都寄了。
+
+刚刚提到了520的仓库，我就顺手看了下issue，还是有不少大佬分享其它方法的，比如有用Xbox加速工具上GitHub的，还有直接用一行命令解决的。
+
+首先聊聊Xbox加速工具，因为我下载的版本中，并没有国外服务器，用起来依旧不稳定，不过已经比steam++效果要好了，毕竟可以加载出图片和下载代码了。
+
+不过最让我惊喜的是后面的方法，只需在终端执行下面的命令，就让我顺畅访问，简直和挂梯子没有任何区别
+
+& "C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe" --host-rules="MAP github.com octocaptcha.com, MAP github.githubassets.com yelp.com, MAP *.githubusercontent.com githubusercontent.com" --host-resolver-rules="MAP octocaptcha.com 20.27.177.113, MAP yelp.com 199.232.240.116, MAP githubusercontent.com 199.232.176.133"
+
+下面是相关教程链接：
+
+issue中提到了上述两种方法 https://github.com/521xueweihan/GitHub520/issues/237
+
+Xbox加速器 https://github.com/skydevil88/XboxDownload?tab=readme-ov-file
+
+一行命令的仓库 https://github.com/feng2208/github-hosts
