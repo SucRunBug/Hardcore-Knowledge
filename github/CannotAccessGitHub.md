@@ -56,3 +56,72 @@ issue中提到了上述两种方法 https://github.com/521xueweihan/GitHub520/is
 Xbox加速器 https://github.com/skydevil88/XboxDownload?tab=readme-ov-file
 
 一行命令的仓库 https://github.com/feng2208/github-hosts
+
+
+
+## 原理
+
+### 数据包传输原理
+
+首先，从本地计算机发出一个数据包请求
+
+经过你的本地网络接入互联网骨干网
+
+经过DNS，即域名解析服务，将你输入的这一串字符解析为要连接的服务器的真实IP地址。
+
+例如，当你输入github.com时，DNS会解析出该地址对应的真实服务器地址。
+
+经过解析后，数据包到达国际出口，接入对应的服务器
+
+服务器处理你的请求后返回一个数据包，再发送回你的计算机。
+
+最终你就看到了GitHub的页面。
+
+### GWF拦截原理
+
+那究竟是什么在阻止我们上GitHub呢？
+
+——防火长城GFW
+
+有了GFW之后，当你的本地计算机发出一个数据包给GitHub时
+
+经过本地网络接入骨干网，并经过DNS解析
+
+现在，出现问题了
+
+GFW探测到流量的部分内容，识别到你访问的是GitHub后，返回一个错误的服务器地址，因此你无法访问GitHub。
+
+这就是GFW封锁互联网访问的一种手段：DNS污染。
+
+当然，很多大神想了如何绕开GFW封锁的方法，但GFW也在不断进步，所以也没有一种完美无缺的翻墙方式。
+
+### 我用过哪些热门的方法
+
+Steam++
+
+网易UU学术加速功能
+
+[开源仓库GitHub520](https://github.com/521xueweihan/GitHub520)、[FastGithub](https://github.com/feng2208/github-hosts)
+
+### 为什么热门方法会访问不了
+
+**关于steam++**
+
+- 解析加速（将连接GitHub的请求通过内置DNS解析到国内CDN，不直接走国外网络）
+- 代理加速（有代理服务器中转，从代理服务器和GitHub服务器建立连接，减少被GFW影响的几率）
+
+因为依赖第三方代理服务器，会不稳定。
+
+**关于开源仓库改host的操作**
+
+使用脚本定期检测 GitHub 的最新可用 IP，并将其更新到 hosts 文件里。这样在访问 GitHub 时，系统会优先使用这些 IP 地址，绕过不稳定的 DNS 解析路径。
+
+但改host操作失效还是和sni阻断有关，**SNI 阻断不依赖于 IP 地址**，而是基于域名级别的拦截，只要 SNI 中仍然包含被阻断的域名（如 github.com），GFW 依然会中断连接。
+
+### 我用的方法，以及为什么就能访问了
+
+在Xbox加速器或steam++中添加DoH服务器
+
+**DoH（DNS over HTTPS）** 将 DNS 查询封装在 HTTPS 请求中的技术，可以绕过DNS污染
+
+用[这个仓库](https://github.com/feng2208/github-hosts)中提到的神秘命令，原理是通过重定向GitHub域名的解析，从而绕过网络限制
