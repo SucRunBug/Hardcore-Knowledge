@@ -132,49 +132,103 @@
 
 从而获取相关的secretId和secretKey，注意不要泄露，并且保存下来。
 
-放置的位置：后端代码中src/main/resources/application.yml的44行
+放置的位置：后端代码中src/main/resources/application.yml的44和45行
 
-![image-20241108161136681](/Users/yanfeiyu/Library/Application Support/typora-user-images/image-20241108161136681.png)
+46行是接口IP，固定的，47行是区域，48是对应人员库名称
+
+关于人员库名称：进入人脸识别控制台，左边栏找到人员库管理，人员管理，点击新建人员库，名称即为48行对应内容（不区分大小写？）
+
+49是人员ID前缀，随便写，50随机字符串随便写（含水印，已改动），52是人脸比对匹配率，80代表80%就合格
 
 人脸识别-》人员库管理-》新建人员组，这里获取人员组名称就是groupId
 
 其他的可以参考腾讯云右上角的API文档
 
+关于API的后端接口位于FaceApi2文件中
+
 ## 百度地图开放平台
 
-注册后，应用管理-》我的应用-》创建应用-》选择浏览器端
+链接：https://lbsyun.baidu.com/
 
-白名单？
+也是免费的
+
+注册后进入控制台，应用管理-》我的应用-》创建应用-》选择浏览器端
+
+白名单？不部署到云服务器上就填*
 
 最重要：应用AK
 
-<img src="/Users/yanfeiyu/Library/Application Support/typora-user-images/image-20241108170704698.png" alt="image-20241108170704698" style="zoom:50%;" />
+此代码文件main.js中61行（位于主目录下的src文件夹内），import BaiduMap from 'vue-baidu-map'，这个需要提前下载
 
-此代码文件main.js中（位于主目录下的src文件夹内），import BaiduMap from 'vue-baidu-map'，这个需要提前下载
+参考教程：https://www.cnblogs.com/WorkingBoy/p/15424905.html
 
-命令如下：npm install vue_baidu-map
+命令如下：npm install vue-baidu-map
+
+admin/src/views/sys/map/index.vue 是使用百度地图的代码
 
 如果有改动，参考API文档
 
 还有拾取坐标系统，可以获取某个地方的经纬度
 
+进入百度地图开放平台——顶栏的开发者频道——开发者工具——坐标拾取器
+
+https://api.map.baidu.com/lbsapi/getpoint/index.html
+
+点击想要的地点后，能在右上角复制到相应的坐标，前面是经度，后面是纬度
+
 ## 项目的配置和运行
 
-项目代码位于admin文件夹内
+项目前端代码位于admin文件夹内
 
-node要14或12版本
+（admin/node_modules是项目的依赖库）
 
-使用资料中的MySQL数据库door，安装Navicat
+安装Node.js，要14或12版本（运行JavaScript的环境）（当前版本过高v22.9.0，还未降级）
+
+安装Vue脚手架（Vue CLI 命令行界面，快速搭建Vue项目）（还未安装）
+
+后端代码位于door文件夹内，使用IDEA打开，配置好Maven（项目管理和构建工具，如果你已经有一个包含 pom.xml 文件的项目，直接在 IDEA 中选择 Open，然后选择项目根目录下的 pom.xml 文件。）
+
+villegePic/face和face里放的是测试用的面部图像
+
+doc/door.sql是数据库的脚本和测试数据，安装Navicat，使用这个脚本创建数据库，设计MySQL和Redis
+
+数据库名叫door，有11张表，camerainfo（摄像头）, community（小区）, inoutrecord（进出记录）, manualrecord（访客登记）, personinfo（居民信息）, sys_log（日志）, sys_menu（菜单）, sys_role（角色-超级管理员、普通角色）, sys_role_menu（权限）, sys_user（系统登录用户）, sys_user_role（登录用户所属角色）
 
 MySQL版本不低于5.7
 
-在package.json中可以查看版本
+前端运行：Node.js 14.x版本或12.x版本，建议不要使用最新版本（所以我需要降级）
 
-前端接口地址.env.development
+在前端代码的admin/package.json中可以查看版本（该文件中含有水印）
 
-在door路径下（疑似后端代码），WebMvcConfig.java文件中，最后有重要的路径，和application.yml的upload字段里的一致，不能说完全一致，后缀能匹配上
+main.js中主要是3行Cookies, 22-echarts, 27-BaiduMap-61ak
 
-总之里面的路径也别乱动，正常情况下能跑的
+前端接口地址.env.development的2，这是在本地回环上8888端口运行，和后端application.yml的37一致
+
+点击debug开始运行后端项目
+
+（macOS报错信息：
+构建进程终止异常: 
+nice -n 10 /opt/homebrew/Cellar/openjdk/21.0.3/libexec/openjdk.jdk/Contents/Home/bin/java -Xmx700m -Djava.awt.headless=true "-Djna.boot.library.path=/Applications/IntelliJ IDEA.app/Contents/lib/jna/aarch64" -Djna.nosys=true -Djna.noclasspath=true --add-opens jdk.compiler/com.sun.tools.javac.api=ALL-UNNAMED --add-opens jdk.compiler/com.sun.tools.javac.util=ALL-UNNAMED --add-opens jdk.compiler/com.sun.tools.javac.code=ALL-UNNAMED --add-opens jdk.compiler/com.sun.tools.javac.comp=ALL-UNNAMED --add-opens jdk.compiler/com.sun.tools.javac.file=ALL-UNNAMED --add-opens jdk.compiler/com.sun.tools.javac.main=ALL-UNNAMED --add-opens jdk.compiler/com.sun.tools.javac.model=ALL-UNNAMED --add-opens jdk.compiler/com.sun.tools.javac.parser=ALL-UNNAMED --add-opens jdk.compiler/com.sun.tools.javac.processing=ALL-UNNAMED --add-opens jdk.compiler/com.sun.tools.javac.tree=ALL-UNNAMED --add-opens jdk.compiler/com.sun.tools.javac.jvm=ALL-UNNAMED -Dexternal.project.config=/Users/yanfeiyu/Library/Caches/JetBrains/IntelliJIdea2024.2/projects/door.1d96925f/external_build_system -Dcompile.parallel=false -Drebuild.on.dependency.change=true -Didea.IntToIntBtree.page.size=32768 -Djdt.compiler.useSingleThread=true -Daether.connector.resumeDownloads=false -Dio.netty.initialSeedUniquifier=3033586465212712129 -Dfile.encoding=UTF-8 -Duser.language=zh -Duser.country=CN -Didea.paths.selector=IntelliJIdea2024.2 "-Djps.language.bundle=/Applications/IntelliJ IDEA.app/Contents/plugins/localization-zh/lib/localization-zh.jar" "-Didea.home.path=/Applications/IntelliJ IDEA.app/Contents" "-Didea.config.path=/Users/yanfeiyu/Library/Application Support/JetBrains/IntelliJIdea2024.2" "-Didea.plugins.path=/Users/yanfeiyu/Library/Application Support/JetBrains/IntelliJIdea2024.2/plugins" -Djps.log.dir=/Users/yanfeiyu/Library/Logs/JetBrains/IntelliJIdea2024.2/build-log "-Djps.fallback.jdk.home=/Applications/IntelliJ IDEA.app/Contents/jbr/Contents/Home" -Djps.fallback.jdk.version=21.0.4 -Dio.netty.noUnsafe=true -Djava.io.tmpdir=/Users/yanfeiyu/Library/Caches/JetBrains/IntelliJIdea2024.2/compile-server/door_573e4c75/_temp_ -Djps.backward.ref.index.builder=true -Djps.backward.ref.index.builder.fs.case.sensitive=false -Djps.track.ap.dependencies=false "-Djps.kotlin.home=/Applications/IntelliJ IDEA.app/Contents/plugins/Kotlin/kotlinc" -Dkotlin.incremental.compilation=true -Dkotlin.incremental.compilation.js=true -Dkotlin.daemon.enabled -Dkotlin.daemon.client.alive.path=\"/var/folders/4n/sd4ck2wn61bdn23b4cclcn440000gn/T/kotlin-idea-7912806462901765990-is-running\" -Dide.propagate.context=false -classpath "/Applications/IntelliJ IDEA.app/Contents/plugins/java/lib/jps-launcher.jar" org.jetbrains.jps.cmdline.Launcher "/Applications/IntelliJ IDEA.app/Contents/plugins/java/lib/jps-builders.jar:/Applications/IntelliJ IDEA.app/Contents/plugins/java/lib/jps-builders-6.jar:/Applications/IntelliJ IDEA.app/Contents/plugins/java/lib/jps-javac-extension.jar:/Applications/IntelliJ IDEA.app/Contents/lib/util-8.jar:/Applications/IntelliJ IDEA.app/Contents/lib/util_rt.jar:/Applications/IntelliJ IDEA.app/Contents/lib/platform-loader.jar:/Applications/IntelliJ IDEA.app/Contents/lib/annotations.jar:/Applications/IntelliJ IDEA.app/Contents/lib/trove.jar:/Applications/IntelliJ IDEA.app/Contents/plugins/java/lib/jetbrains.kotlinx.metadata.jvm.jar:/Applications/IntelliJ IDEA.app/Contents/lib/protobuf.jar:/Applications/IntelliJ IDEA.app/Contents/lib/jps-model.jar:/Applications/IntelliJ IDEA.app/Contents/plugins/java/lib/javac2.jar:/Applications/IntelliJ IDEA.app/Contents/lib/forms_rt.jar:/Applications/IntelliJ IDEA.app/Contents/lib/util.jar:/Applications/IntelliJ IDEA.app/Contents/plugins/java/lib/aether-dependency-resolver.jar:/Applications/IntelliJ IDEA.app/Contents/plugins/java/lib/maven-resolver-connector-basic.jar:/Applications/IntelliJ IDEA.app/Contents/plugins/java/lib/maven-resolver-transport-file.jar:/Applications/IntelliJ IDEA.app/Contents/plugins/java/lib/maven-resolver-transport-http.jar:/Applications/IntelliJ IDEA.app/Contents/lib/idea_rt.jar:/Applications/IntelliJ IDEA.app/Contents/plugins/JavaEE/lib/jasper-v2-rt.jar:/Applications/IntelliJ IDEA.app/Contents/plugins/Kotlin/lib/jps/kotlin-jps-plugin.jar:/Applications/IntelliJ IDEA.app/Contents/lib/util-8.jar:/Applications/IntelliJ IDEA.app/Contents/plugins/java/lib/jps/java-compiler-charts-jps.jar:/Applications/IntelliJ IDEA.app/Contents/plugins/eclipse/lib/eclipse-jps.jar:/Applications/IntelliJ IDEA.app/Contents/plugins/eclipse/lib/eclipse-common.jar:/Applications/IntelliJ IDEA.app/Contents/plugins/javaFX/lib/javaFX-jps.jar:/Applications/IntelliJ IDEA.app/Contents/plugins/javaFX/lib/javaFX-common.jar:/Applications/IntelliJ IDEA.app/Contents/plugins/JavaEE/lib/jps/javaee-jps.jar:/Applications/IntelliJ IDEA.app/Contents/plugins/uiDesigner/lib/jps/java-guiForms-jps.jar:/Applications/IntelliJ IDEA.app/Contents/plugins/platform-langInjection/lib/java-langInjection-jps.jar:/Applications/IntelliJ IDEA.app/Contents/plugins/Groovy/lib/groovy-jps.jar:/Applications/IntelliJ IDEA.app/Contents/plugins/Groovy/lib/groovy-constants-rt.jar:/Applications/IntelliJ IDEA.app/Contents/plugins/maven/lib/maven-jps.jar:/Applications/IntelliJ IDEA.app/Contents/plugins/gradle-java/lib/gradle-jps.jar:/Applications/IntelliJ IDEA.app/Contents/plugins/JPA/lib/jps/javaee-jpa-jps.jar" org.jetbrains.jps.cmdline.BuildMain 127.0.0.1 49974 5f31cd0b-0103-491c-8373-9bbb908b7ee9 /Users/yanfeiyu/Library/Caches/JetBrains/IntelliJIdea2024.2/compile-server
+nice: /opt/homebrew/Cellar/openjdk/21.0.3/libexec/openjdk.jdk/Contents/Home/bin/java: No such file or directory
+）
+
+（解决方案：安装zulu-8，并卸载21版本，然后在项目和Maven中指定zulu-8，参考https://chatgpt.com/share/6734221d-e94c-8000-a151-bcae1938b7ae）
+
+（接下来是数据库连接报错了，因为还没配置数据库，我继续看视频了）
+
+vue.config.js中11行也有个端口，但这不是前端项目的端口（是Vue的端口？）
+
+（我尝试安装了MySQL，按照一个B站视频上操作https://www.bilibili.com/video/BV1jQ4y1G7xP，但发现端口不是默认的3306，代码里还没找，方案1是改代码，但我不太想破坏原始代码，方案2就是改数据库端口到3308，Mac端修改不太方便，另外我还安装了一些工具比如vue和nodejs，另外我还发现后端的application.yml中有文件存储路径，比如32、35、36行，这个也需要修改）
+
+前端文件.env.development是开发环境的接口地址，即本机地址，另外一个是.env.production，这是打包以后的程序放在服务器上的接口，如果不放在服务器上，那就改成本机地址
+
+正常运行后端项目后，会有四个地址，分别是本机地址，网络地址，swagger做的接口文档地址，用于给前端开发查看，最后一个地址没说
+
+运行前端，在admin路径下 npm run dev
+
+在door路径下，WebMvcConfig.java文件中，最后有重要的路径，和application.yml的upload字段里的一致，不能说完全一致，后缀能匹配上
+
+
 
 ## 项目结构
 
@@ -192,7 +246,7 @@ MySQL版本不低于5.7
 
 ## mybatis-plus
 
-mysql端口，项目中开的是3308，用户root，密码1234
+mysql端口，项目中开的是3308，用户root，密码1234（我是12345678）
 
 第五、六、七较为重要
 
