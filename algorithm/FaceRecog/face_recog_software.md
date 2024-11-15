@@ -258,6 +258,16 @@ common文件夹下也有很多冗余代码和水印
 
 （为需要自定义的代码做了思维导图，删除了所有的电子水印）
 
+如何对应后端暴露出来的接口呢，前端的放在api/sys中的js文件，每一个js文件对应一个后端的控制器Controller
+
+比如camera.js中第4行url: '/sys/camera/list', 就对应后端中的CameraController.java的第25行（控制器路径）和第31行（方法路径），然后加上http://localhost:8888作为前缀，还有VUE_APP_BASE_API接口地址，拼接前端的url就可以访问了。
+
+图片资源位于assets下
+
+组件在components，一般就不动了
+
+layout是布局，router是路由，store里是cookies
+
 ## mybatis-plus
 
 mysql端口，项目中开的是3308，用户root，密码12345678（这是初始化MySQL时设置的）
