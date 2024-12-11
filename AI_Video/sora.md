@@ -7,11 +7,11 @@ https://www.woshipm.com/aigc/6015159.html 这是一篇sora团队专访
 
 参考视频：
 
-https://www.bilibili.com/video/BV1Um411S7SZ/
+https://www.bilibili.com/video/BV1Um411S7SZ/（genji讲的sora，比较泛）
 
-https://www.bilibili.com/video/BV14F4m1c7RC
+https://www.bilibili.com/video/BV14F4m1c7RC*（批注：这篇视频特别好，讲的原理特别细致，采访了专业人员，目前最后的内容在进度条14分钟左右）*
 
-https://www.bilibili.com/video/BV1aC411a7pp/
+https://www.bilibili.com/video/BV1aC411a7pp/（剪辑素材）
 
 ## 标题：
 
